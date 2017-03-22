@@ -1,29 +1,16 @@
-# Language setting
 language: node_js
 
-# Version number
 node_js:
-  - 0.12
+  - 4.3.1
+  - 5.0.0
+
+env:
+  - XUNIT_FILE=shippable/testresults/result.xml
 
 build:
-  pre_ci_boot:
-    image_name: drydock/u14nod
-    image_tag: prod
-    pull: true
-    options: '--privileged=true --net=bridge -e FOO=true -e BOO=false'
-
   pre_ci:
-    - echo "this is master branch"
-
+    - echo "this is pr-ci"
   ci:
     - npm install
-
-  post_ci:
-    - ls -a
-    - pwd
-
-  cache: true
-
-  cache_dir_list: 
-    - $SHIPPABLE_BUILD_DIR/node_modules
-
+    - npm test
+      
